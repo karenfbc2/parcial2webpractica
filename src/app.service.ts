@@ -1,8 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Proyecto } from '../../proyecto/entities/proyecto.entity';
 
-@Injectable()
-export class AppService {
-  getHello(): string {
-    return 'Hello World!!';
-  }
+@Entity()
+export class Estudiante {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  cedula: number;
+
+  @Column()
+  nombre: string;
+
+  @Column()
+  semestre: number;
+
+  @Column()
+  programa: string;
+
+  @Column()
+  promedio: number;
+
+  // Relación 1 estudiante → muchos proyectos
+  @OneToMany(() => Proyecto, (proyecto) => proyecto.estudianteLider)
+  proyectos: Proyecto[];
 }
